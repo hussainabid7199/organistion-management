@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Notify, { Success, Error } from "./Notify";
+import axios from "axios"
 
 
 export default function Index() {
 
   const checkInternet = async () => {
     try {
-      const online = await fetch("https://college-erp-server.vercel.app/");
+      const online = await axios.get("https://college-erp-server.vercel.app/").then(res => {
+        console.log(res.data);
+      })
       online.status === 200 ? Success("Connected") : Error("Not Connected")
     } catch (error) {
       Error("Check your internet")
